@@ -1,0 +1,10 @@
+# npm is looking for package.json's dependencies and installing those programns automatically
+# package.json is storing the informative modules for running our project.
+# so we don't need to share all of the npm module , we just sharing my package.json and the someone who is shared by me to my code that guy just has to write 
+npm i
+
+--save-dev 코드를 작성해 주면 devDependencies에 설치된 내용이 추가 된다.
+ "devDependencies": {
+    "@babel/core": "^7.17.10"
+  }
+}
