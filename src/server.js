@@ -4,6 +4,7 @@ import session from "express-session";
 import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import helmet from "helmet";
+import cors from "cors";
 import rootRouter from "./routers/rootRouter";
 import videoRouter from "./routers/videoRouter";
 import userRouter from "./routers/userRouter";
@@ -35,12 +36,21 @@ app.use(flash());
 app.use(localMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
+const corsOptions = {
+  origin: "https://wetube-reloaded-yeongmin.herokuapp.com/",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header("Cross-Origin-Embedder-Policy", "credentialless");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
   res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Access-Control-Allow-Origin",
+    "https://wetube-reloaded-yeongmin.herokuapp.com/"
   );
+  res.header("Access-Control-Allow-Credentials", true);
   next();
 });
 app.use("/convert", express.static("node_modules/@ffmpeg/core/dist"));
